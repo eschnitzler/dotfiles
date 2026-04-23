@@ -142,3 +142,60 @@ if [[ ${#FAILED[@]} -gt 0 ]]; then
 else
   center "Done! Stowed ${#SUCCEEDED[@]} module(s): ${SUCCEEDED[*]}"
 fi
+
+# ---------------------------------------------------------------------------
+# Post-stow: configure secrets from pass
+# ---------------------------------------------------------------------------
+setup_copilot() {
+  local copilot_dir="$HOME/.config/github-copilot"
+  local apps_json="$copilot_dir/apps.json"
+
+  # Already configured
+  [[ -f "$apps_json" ]] && return
+
+  echo ""
+  echo "Setting up GitHub Copilot token..."
+
+  if ! command -v pass &>/dev/null; then
+    echo "  ⚠ pass not installed. Skipping copilot token setup."
+    echo "    Run :Copilot auth in Neovim to authenticate manually."
+    return
+  fi
+
+  local token
+  token=$(pass show copilot/oauth_token 2>/dev/null) || true
+
+  if [[ -z "$token" ]]; then
+    echo "  ⚠ No token found in pass at 'copilot/oauth_token'"
+    echo ""
+    echo "  To set up Copilot, either:"
+    echo "    1. Run :Copilot auth in Neovim (easiest)"
+    echo "    2. Store your token in pass for future installs:"
+    echo "       pass insert copilot/oauth_token"
+    return
+  fi
+
+  local github_user
+  github_user=$(git config --global github.user 2>/dev/null || echo "")
+
+  if [[ -z "$github_user" ]]; then
+    echo "  ⚠ No github.user set in gitconfig. Set it with:"
+    echo "    git config --global github.user YOUR_USERNAME"
+    return
+  fi
+
+  local app_id="Iv1.b507a08c87ecfe98"
+  mkdir -p "$copilot_dir"
+  cat > "$apps_json" <<EOJSON
+{"github.com:${app_id}":{"user":"${github_user}","oauth_token":"${token}","githubAppId":"${app_id}"}}
+EOJSON
+  chmod 600 "$apps_json"
+  echo "  ✓ Copilot token configured from pass"
+}
+
+# Run post-stow hooks for stowed modules
+for pkg in "${SUCCEEDED[@]}"; do
+  case "$pkg" in
+    copilot) setup_copilot ;;
+  esac
+done
