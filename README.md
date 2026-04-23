@@ -8,7 +8,7 @@ Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 git clone git@github.com:eschnitzler/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# Install system dependencies (Arch / Debian)
+# Install system dependencies (Arch / Debian / Fedora)
 ./packages.sh
 
 # Interactively select which configs to stow (requires fzf)
@@ -26,10 +26,13 @@ dotfiles/
 │   ├── bash/           # .bashrc, .bash_aliases, .bash_functions
 │   ├── btop/           # btop terminal monitor
 │   ├── copilot/        # GitHub Copilot
+│   ├── desktop/        # Default applications (mimeapps.list)
 │   ├── fish/           # Fish shell + completions
+│   ├── fuzzel/         # Fuzzel launcher
 │   ├── gh/             # GitHub CLI
-│   ├── git/            # .gitconfig, git-hotfix
-│   ├── hypr/           # Hyprland (illogical-impulse overrides)
+│   ├── git/            # .gitconfig, commit template
+│   ├── hypr/           # Hyprland (illogical-impulse overrides + scripts)
+│   ├── kanshi/         # Kanshi monitor profile switcher
 │   ├── kitty/          # Kitty terminal
 │   ├── lazygit/        # Lazygit TUI
 │   ├── nvim/           # Neovim (LazyVim)
@@ -49,8 +52,17 @@ dotfiles/
 ./install.sh --list
 
 # Stow specific modules manually
-stow -v -R -d stowables/ -t "$HOME" nvim fish git
+stow -v --no-folding -R -d stowables/ -t "$HOME" nvim fish git
 
 # Install system packages then stow everything
 ./install.sh --packages --all
+
+# Adopt existing files into the repo (moves real → symlinks)
+./install.sh --adopt
 ```
+
+## Notes
+
+- Stowing `copilot` auto-configures the GitHub Copilot token from `pass show github_pat`
+  if available. Otherwise run `:Copilot auth` in Neovim.
+- Uses `--no-folding` to create individual symlinks instead of symlinking entire directories.

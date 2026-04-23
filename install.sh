@@ -54,7 +54,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "$INSTALL_PACKAGES" == true ]]; then
-  bash "$DOTFILES_DIR/packages.sh"
+  if ! bash "$DOTFILES_DIR/packages.sh"; then
+    echo "⚠  packages.sh failed. Continue with stow anyway? [y/N]"
+    read -rp "" confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+      exit 1
+    fi
+  fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -163,15 +169,15 @@ setup_copilot() {
   fi
 
   local token
-  token=$(pass show copilot/oauth_token 2>/dev/null) || true
+  token=$(pass show github_pat 2>/dev/null) || true
 
   if [[ -z "$token" ]]; then
-    echo "  ⚠ No token found in pass at 'copilot/oauth_token'"
+    echo "  ⚠ No token found in pass at 'github_pat'"
     echo ""
     echo "  To set up Copilot, either:"
     echo "    1. Run :Copilot auth in Neovim (easiest)"
     echo "    2. Store your token in pass for future installs:"
-    echo "       pass insert copilot/oauth_token"
+    echo "       pass insert github_pat"
     return
   fi
 

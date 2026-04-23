@@ -11,6 +11,7 @@ stowables/opencode/.config/opencode/*.bak
 
 # OS / editor
 .DS_Store
+.devenv/
 *.swp
 *.swo
 *~
@@ -20,3 +21,4 @@ stowables/opencode/.config/opencode/*.bak
 *.secrets
 .bash_secrets
 stowables/copilot/.config/github-copilot/apps.json
+stowables/fish/.config/fish/fish_variables
