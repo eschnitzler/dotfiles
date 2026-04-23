@@ -37,29 +37,38 @@ echo "Detected OS: $OS ($(uname -m))"
 # Arch
 # ---------------------------------------------------------------------------
 install_arch() {
-  sudo pacman -Sy --noconfirm \
+  sudo pacman -S --noconfirm \
+    btop \
     cargo \
+    curl \
+    entr \
+    eza \
+    fd \
     feh \
     ffmpeg \
+    fish \
+    fzf \
+    git-delta \
     gnupg \
+    grim \
+    jq \
+    kanshi \
+    lazygit \
     less \
+    libnotify \
     openssh \
+    pass \
     python-pip \
+    ripgrep \
+    slurp \
+    sshpass \
+    starship \
     stow \
+    swappy \
     tmux \
     wget \
-    xclip \
-    entr \
-    fd \
-    git-delta \
-    fzf \
-    ripgrep \
-    fish \
-    starship \
-    lazygit \
-    btop \
-    libnotify \
-    sshpass
+    wl-clipboard \
+    xclip
 
   # yay for AUR packages
   if ! command -v yay &>/dev/null; then
@@ -76,25 +85,29 @@ install_arch() {
 install_debian() {
   sudo apt update
   sudo apt install -y \
+    btop \
     cargo \
+    curl \
+    entr \
+    eza \
+    fd-find \
     feh \
     ffmpeg \
+    fish \
+    fzf \
     gnupg \
+    jq \
     less \
+    libnotify-bin \
     openssh-client \
     python3-pip \
+    ripgrep \
+    sshpass \
     stow \
     tmux \
     wget \
-    xclip \
-    entr \
-    fd-find \
-    fzf \
-    ripgrep \
-    fish \
-    btop \
-    libnotify-bin \
-    sshpass
+    wl-clipboard \
+    xclip
 
   # Symlink fd-find → fd
   mkdir -p "$HOME/.local/bin"
@@ -112,25 +125,29 @@ install_debian() {
 # ---------------------------------------------------------------------------
 install_fedora() {
   sudo dnf install -y \
+    btop \
     cargo \
+    curl \
+    entr \
+    eza \
+    fd-find \
     feh \
     ffmpeg-free \
+    fish \
+    fzf \
     gnupg2 \
+    jq \
     less \
+    libnotify \
     openssh-clients \
     python3-pip \
+    ripgrep \
+    sshpass \
     stow \
     tmux \
     wget \
-    xclip \
-    entr \
-    fd-find \
-    fzf \
-    ripgrep \
-    fish \
-    btop \
-    libnotify \
-    sshpass
+    wl-clipboard \
+    xclip
 
   # Symlink fd → fd  (Fedora installs as 'fd' already, but just in case)
   if command -v fdfind &>/dev/null && ! command -v fd &>/dev/null; then
