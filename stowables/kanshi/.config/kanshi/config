@@ -1,0 +1,16 @@
+# Kanshi config - automatically switches monitor profiles
+
+# Profile: Laptop only (undocked)
+# Runs merge script to bring all windows back to workspaces 1-10
+profile laptop {
+    output eDP-1 position 0,0
+    exec ~/.config/hypr/custom/scripts/undock-merge.sh
+}
+
+# Profile: Docked with 2 ASUS monitors  
+profile docked {
+    output eDP-1 position 0,310
+    output DP-3 position 1920,0
+    output DP-4 position 3840,0
+    exec ~/.config/hypr/custom/scripts/dock-fix.sh
+}
