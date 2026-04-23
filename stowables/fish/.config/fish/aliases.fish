@@ -9,6 +9,9 @@ alias c="clear"
 alias q="exit"
 alias grep="grep --color=auto"
 
+# Navigation
+alias cdd='cd ~/dev/(find ~/dev -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | fzf --prompt="Select a project: ")'
+
 # Docker
 alias dc="docker compose"
 
