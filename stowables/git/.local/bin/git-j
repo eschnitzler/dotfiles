@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+#==================================================
+# SETUP DEBUGGING AND SAFETY FLAGS
+#==================================================
+set -o errexit  # exit script on error
+set -o pipefail # exit when a script in a pipeline fails
+set -o nounset  # don't allow unset variables
+
+# Warn if fzf not installed
+if ! [[ -x "$(command -v fzf)" ]]; then
+	echo 'MISSING DEPENDENCY: fzf'
+	echo 'To setup git-j, see https://valmardynamics.atlassian.net/wiki/spaces/DKB/pages/934445057/Setup+git+j'
+	exit 1
+fi
+
+if ! [[ -x "$(command -v jira)" ]]; then
+	echo "jira-cli is not installed. Please install it by running './system-installer' in your dotfiles repo"
+	exit 1
+fi
+
+fifo=/tmp/git_j_fifo
+if [[ ! -p $fifo ]]; then
+	mkfifo $fifo
+fi
+
+CACHE_FILE=~/.cache/git_j
+touch $CACHE_FILE
+jira_checkout 2>/dev/null | tee $CACHE_FILE >$fifo &
+
+BRANCH="$(fzf --preview 'echo {} | cut -f1 -d":" | sed -e 's/\\s*//' | xargs -I{} jira issue view {} --plain' < <(
+	cat $CACHE_FILE $fifo | awk '!x[$0]++ {print $0; system("")}' | tee $CACHE_FILE
+) | cut -f1 -d':')"
+
+[ ! "$BRANCH" = "''" ] && (git jchk "$BRANCH") || echo Canceled
+
+rm $fifo

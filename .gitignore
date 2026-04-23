@@ -1,0 +1,22 @@
+# Neovim
+stowables/nvim/.config/nvim/vim-sessions
+stowables/nvim/.config/nvim/vim-undo
+stowables/nvim/.config/nvim/plugin/packer_compiled.lua
+
+# OpenCode
+stowables/opencode/.config/opencode/.opencode/
+stowables/opencode/.config/opencode/node_modules/
+stowables/opencode/.config/opencode/*.lock
+stowables/opencode/.config/opencode/*.bak
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Secrets / auth tokens
+.claude/
+*.secrets
+.bash_secrets
+stowables/copilot/.config/github-copilot/apps.json

@@ -1,0 +1,15 @@
+# Stow defaults
+\.git
+\.gitignore
+\.gitmodules
+^/README.*
+^/LICENSE.*
+
+# Runtime / generated
+\.opencode
+node_modules
+__pycache__
+\.cache
+vim-sessions
+vim-undo
+\.repro

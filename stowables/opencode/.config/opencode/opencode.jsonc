@@ -1,0 +1,129 @@
+{
+  "small_model": "amazon-bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "chrome": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp"
+      ],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "compaction": {
+      "model": "github-copilot/gemini-3-flash-preview"
+    }
+  },
+  "plugin": [
+    // "oh-my-opencode@latest",
+    "@franlol/opencode-md-table-formatter@latest",
+    "@tarquinen/opencode-dcp@latest",
+    "pbakais/impeccable@latest",
+    "oh-my-opencode-slim@latest",
+    "opencode-agent-memory@latest",
+    "opencode-notification@latest",
+  ],
+  "provider": {
+    "amazon-bedrock": {
+      "name": "Amazon Bedrock",
+      "options": {
+        "region": "us-east-1",
+        "profile": "default",
+        "baseURL": "https://bedrock-runtime.us-east-1.amazonaws.com"
+      },
+      "models": {
+        "claude-sonnet-4.5": {
+          "name": "Claude Sonnet 4.5",
+          "id": "anthropic.claude-sonnet-4-5-20250929-v1:0",
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "claude-haiku-4.5": {
+          "name": "Claude Haiku 4.5",
+          "id": "anthropic.claude-haiku-4-5-20251001-v1:0",
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 8192
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "kimi-k2.5": {
+          "name": "Kimi K2.5",
+          "id": "moonshotai.kimi-k2.5",
+          "attachment": true,
+          "limit": {
+            "context": 262000,
+            "output": 4096
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "glm-4.7": {
+          "name": "GLM-4.7",
+          "id": "zai.glm-4.7",
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 4096
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "minimax-m2.1": {
+          "name": "MiniMax M2.1",
+          "id": "minimax.minimax-m2.1",
+          "attachment": true,
+          "limit": {
+            "context": 197000,
+            "output": 8192
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

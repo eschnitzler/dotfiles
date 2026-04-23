@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "preset": "copilot-optimized",
+  "presets": {
+    "copilot-optimized": {
+      "orchestrator": {
+        "model": "github-copilot/claude-opus-4.6",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "websearch"
+        ]
+      },
+      "oracle": {
+        "model": "github-copilot/gpt-5.4",
+        "variant": "high",
+        "skills": [],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "github-copilot/claude-sonnet-4.6",
+        "variant": "low",
+        "skills": [],
+        "mcps": [
+          "websearch",
+          "context7",
+          "grep_app"
+        ]
+      },
+      "explorer": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "github-copilot/gemini-3.1-pro-preview",
+        "variant": "medium",
+        "skills": [
+          "agent-browser"
+        ],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "github-copilot/grok-code-fast-1",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      }
+    }
+  },
+  "multiplexer": {
+    "type": "auto",
+    "layout": "main-vertical",
+    "main_pane_size": 60
+  },
+  "council": {
+    "master": {
+      "model": "github-copilot/gpt-5.4"
+    },
+    "presets": {
+      "default": {
+        "alpha": {
+          "model": "github-copilot/claude-opus-4.6"
+        },
+        "beta": {
+          "model": "github-copilot/gemini-3.1-pro-preview"
+        },
+        "gamma": {
+          "model": "github-copilot/gpt-5.3-codex"
+        }
+      }
+    }
+  }
+}

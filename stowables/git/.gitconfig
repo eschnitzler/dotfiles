@@ -1,0 +1,55 @@
+[init]
+    defaultBranch = master
+
+[user]
+	name = "Ephraim Schnitzler"
+	email = "east1499@gmail.com"
+
+[github]
+    user = eschnitzler
+
+[core]
+	autocrlf = input
+	excludesfile = ~/.gitignore
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	dark = true
+	line-numbers = true
+	line-numbers-left-format = ""
+	side-by-side = false
+	syntax-theme = TwoDark
+	plus-style = syntax auto
+	minus-style = syntax auto
+
+[branch]
+    sort = -committerdate
+
+[status]
+    submoduleSummary = true
+
+[push]
+    followTags = true
+
+[diff]
+    submodule = log
+    colorMoved = default
+
+[fetch]
+    recurseSubmodules = on-demand
+
+[commit]
+    verbose = true
+    template = ~/.git-commit-template
+
+[alias]
+    unstage = "reset HEAD --"
+    pam="!git checkout $(git branch | sed -e 's/\\*//' | fzf)"
+    hard-checkout-origin="!gh pr checkout $(git symbolic-ref --short HEAD) -f"
+
+[mergetool]
+	keepBackup = false

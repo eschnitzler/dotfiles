@@ -1,0 +1,41 @@
+# Utils
+spinner() {
+	if [[ -n ${VERBOSE:-} ]]; then
+	    eval "$*"
+	else
+	    echom "$*..."
+	    local temp rc
+	    temp=$(mktemp)
+	    printf "$(tput dim)"
+	    eval "$*" >"$temp" 2>&1
+	    rc=$?
+	    printf "$(tput sgr0)"
+	    if [[ "$rc" -ne 0 ]]; then
+		    echo -e "\e[1A\e[K$* FAILED"
+		    cat "$temp"
+		    rm -f "$temp"
+		    return "$rc"
+	    fi
+	    rm -f "$temp"
+	    echo -e "\e[1A\e[K$* DONE"
+	fi
+}
+# source: https://unix.stackexchange.com/a/267730 with some personal modifications
+center() {
+	termwidth="$(tput cols)"
+	padding="$(printf '%0.1s' ={1..500})"
+	printf '%s%*.*s %s %*.*s%s\n' "$(tput bold)$(tput setab 4)" 0 "$(((termwidth - 2 - ${#1}) / 2))" "$padding" "$1" 0 "$(((termwidth - 1 - ${#1}) / 2))" "$padding" "$(tput sgr0)"
+}
+
+echom(){
+    printf '%s%s%s\n' "$(tput setaf 3)$(tput bold)$(tput sitm)" "$1" "$(tput sgr0)"
+}
+
+
+# source: https://fabianlee.org/2020/09/06/bash-difference-between-two-arrays/
+arraydiff() {
+  awk 'BEGIN{RS=ORS=" "}
+       {NR==FNR?a[$0]++:a[$0]--}
+       END{for(k in a)if(a[k])print k}' <(echo -n "${!1}") <(echo -n "${!2}")
+}
+

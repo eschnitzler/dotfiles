@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "minimax/minimax.minimax-m2.1"
+    },
+    "librarian": {
+      "model": "minimax/minimax.minimax-m2.1"
+    },
+    "explore": {
+      "model": "anthropic/claude-haiku-4-5-20251001-v1:0"
+    },
+    "oracle": {
+      "model": "moonshot/kimi-k2.5",
+      "variant": "high"
+    },
+    "multimodal-looker": {
+      "model": "anthropic/claude-haiku-4-5-20251001-v1:0"
+    },
+    "prometheus": {
+      "model": "moonshot/kimi-k2.5",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "moonshot/kimi-k2.5",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "minimax/minimax.minimax-m2.1",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "minimax/minimax.minimax-m2.1"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "minimax/minimax.minimax-m2.1",
+      "description": "Frontend, UI/UX, design, styling, animation"
+    },
+    "writing": {
+      "model": "anthropic/claude-haiku-4-5-20251001-v1:0",
+      "description": "Documentation, prose, technical writing"
+    },
+    "ultrabrain": {
+      "model": "moonshot/kimi-k2.5",
+      "variant": "xhigh"
+    },
+    "artistry": {
+      "model": "moonshot/kimi-k2.5",
+      "variant": "max"
+    },
+    "quick": {
+      "model": "anthropic/claude-haiku-4-5-20251001-v1:0"
+    },
+    "unspecified-low": {
+      "model": "anthropic/claude-haiku-4-5-20251001-v1:0"
+    },
+    "unspecified-high": {
+      "model": "minimax/minimax.minimax-m2.1"
+    }
+  }
+}

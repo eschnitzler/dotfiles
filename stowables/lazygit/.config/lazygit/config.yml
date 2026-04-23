@@ -1,0 +1,280 @@
+# Lazygit configuration
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+gui:
+  # Theme - One Dark colors
+  theme:
+    activeBorderColor:
+      - "#61afef"
+      - bold
+    inactiveBorderColor:
+      - "#5c6370"
+    searchingActiveBorderColor:
+      - "#61afef"
+      - bold
+    optionsTextColor:
+      - "#61afef"
+    selectedLineBgColor:
+      - "#3e4452"
+    cherryPickedCommitFgColor:
+      - "#61afef"
+    cherryPickedCommitBgColor:
+      - "#c678dd"
+    markedBaseCommitFgColor:
+      - "#61afef"
+    markedBaseCommitBgColor:
+      - "#e5c07b"
+    unstagedChangesColor:
+      - "#e06c75"
+    defaultFgColor:
+      - "#abb2bf"
+  # Nerd font icons
+  nerdFontsVersion: "3"
+  # Show file icons (requires nerd font)
+  showFileIcons: true
+  # Border style: single, double, rounded, hidden
+  border: rounded
+  # Show random tip on startup
+  showRandomTip: false
+  # Show bottom line with keybinding hints
+  showBottomLine: true
+  # Show command log
+  showCommandLog: false
+  # Time format for commits
+  timeFormat: "02 Jan 06"
+  shortTimeFormat: "3:04PM"
+  # Window size
+  screenMode: normal
+  # Split view
+  splitDiff: auto
+  # Scrolling
+  scrollHeight: 2
+  scrollPastBottom: true
+  # Mouse support
+  mouseEvents: true
+  # Skip confirmation for discard
+  skipDiscardChangeWarning: false
+  skipStashWarning: false
+  # Side panel width
+  sidePanelWidth: 0.3333
+  # Expand focused side panel
+  expandFocusedSidePanel: false
+  # Main panel split mode: horizontal, vertical, flexible
+  mainPanelSplitMode: flexible
+  # Enlarge the focused side panel
+  enlargedSideViewLocation: left
+  # Author colors (makes it easier to see who did what)
+  authorColors:
+    "*": "#abb2bf"
+git:
+  # Paging
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
+  # Commit settings
+  commit:
+    signOff: false
+    autoWrapCommitMessage: true
+    autoWrapWidth: 72
+  # Merge settings
+  merging:
+    manualCommit: false
+    args: ""
+  # Skip hooks by default (set to false if you want hooks to run)
+  skipHookPrefix: WIP
+  # Auto fetch (set to 0 to disable)
+  autoFetch: true
+  autoRefresh: true
+  # Branch settings
+  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+  # Parse emoji in commit messages
+  parseEmoji: true
+  # Log
+  log:
+    order: topo-order
+    showGraph: always
+    showWholeGraph: false
+  # Diff context lines
+  diffContextSize: 3
+  allBranchesLogCmds:
+    - git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium
+os:
+  # Open command (for opening files in editor)
+  editPreset: "nvim"
+  # Open in file manager
+  openCommand: "xdg-open {{filename}}"
+# Refresh mode: auto, focus
+refresher:
+  refreshInterval: 10
+  fetchInterval: 60
+# Update check
+update:
+  method: never
+# Confirmations
+confirmOnQuit: false
+quitOnTopLevelReturn: false
+# Keybindings (defaults are good, but here are some nice additions)
+keybinding:
+  universal:
+    quit: q
+    quit-alt1: <c-c>
+    return: <esc>
+    togglePanel: <tab>
+    prevItem: <up>
+    nextItem: <down>
+    prevItem-alt: k
+    nextItem-alt: j
+    prevPage: ","
+    nextPage: "."
+    gotoTop: "<"
+    gotoBottom: ">"
+    scrollLeft: H
+    scrollRight: L
+    prevBlock: <left>
+    nextBlock: <right>
+    prevBlock-alt: h
+    nextBlock-alt: l
+    nextMatch: n
+    prevMatch: N
+    startSearch: /
+    optionMenu: <disabled>
+    optionMenu-alt1: "?"
+    select: <space>
+    goInto: <enter>
+    openRecentRepos: <c-r>
+    confirm: <enter>
+    remove: d
+    new: "n"
+    edit: e
+    openFile: o
+    scrollUpMain: <pgup>
+    scrollDownMain: <pgdown>
+    scrollUpMain-alt1: K
+    scrollDownMain-alt1: J
+    executeShellCommand: ":"
+    createRebaseOptionsMenu: m
+    pushFiles: P
+    pullFiles: p
+    refresh: R
+    createPatchOptionsMenu: <c-p>
+    nextTab: "]"
+    prevTab: "["
+    nextScreenMode: +
+    prevScreenMode: _
+    undo: z
+    redo: <c-z>
+    filteringMenu: <c-s>
+    diffingMenu: W
+    diffingMenu-alt: <c-e>
+    copyToClipboard: <c-o>
+    submitEditorText: <enter>
+    extrasMenu: "@"
+    toggleWhitespaceInDiffView: <c-w>
+    increaseContextInDiffView: "}"
+    decreaseContextInDiffView: "{"
+    toggleRangeSelect: v
+  files:
+    commitChanges: c
+    commitChangesWithoutHook: w
+    amendLastCommit: A
+    commitChangesWithEditor: C
+    findBaseCommitForFixup: <c-f>
+    ignoreFile: i
+    refreshFiles: r
+    stashAllChanges: s
+    viewStashOptions: S
+    toggleStagedAll: a
+    viewResetOptions: D
+    fetch: f
+    toggleTreeView: "`"
+    openMergeOptions: M
+    openStatusFilter: <c-b>
+    copyFileInfoToClipboard: "y"
+  branches:
+    createPullRequest: o
+    viewPullRequestOptions: O
+    checkoutBranchByName: c
+    forceCheckoutBranch: F
+    rebaseBranch: r
+    renameBranch: R
+    mergeIntoCurrentBranch: M
+    viewGitFlowOptions: i
+    fastForward: f
+    createTag: T
+    pushTag: P
+    setUpstream: u
+    fetchRemote: f
+    sortOrder: s
+  commits:
+    squashDown: s
+    renameCommit: r
+    renameCommitWithEditor: R
+    viewResetOptions: g
+    markCommitAsFixup: f
+    createFixupCommit: F
+    squashAboveCommits: S
+    moveDownCommit: <c-j>
+    moveUpCommit: <c-k>
+    amendToCommit: A
+    resetCommitAuthor: a
+    pickCommit: p
+    revertCommit: t
+    cherryPickCopy: C
+    pasteCommits: V
+    markCommitAsBaseForRebase: B
+    tagCommit: T
+    checkoutCommit: <space>
+    resetCherryPick: <c-R>
+    copyCommitAttributeToClipboard: "y"
+    openLogMenu: <c-l>
+    openInBrowser: o
+    viewBisectOptions: b
+    startInteractiveRebase: i
+  stash:
+    popStash: g
+    renameStash: r
+  commitFiles:
+    checkoutCommitFile: c
+  main:
+    toggleSelectHunk: a
+    pickBothHunks: b
+    editSelectHunk: E
+  submodules:
+    init: i
+    update: u
+    bulkMenu: b
+  worktrees:
+    viewWorktreeOptions: w
+# Custom commands
+customCommands:
+  # Interactive rebase from selected commit
+  - key: "I"
+    command: "git rebase -i {{.SelectedLocalCommit.Sha}}^"
+    context: "commits"
+    loadingText: "Starting interactive rebase..."
+    description: "Interactive rebase from this commit"
+  # Push force with lease (safer than --force)
+  - key: "<c-P>"
+    command: "git push --force-with-lease"
+    context: "global"
+    loadingText: "Force pushing with lease..."
+    description: "Force push with lease"
+  # Fetch all remotes and prune
+  - key: "F"
+    command: "git fetch --all --prune"
+    context: "global"
+    loadingText: "Fetching all remotes..."
+    description: "Fetch all remotes and prune"
+  # Create a WIP commit
+  - key: "W"
+    command: "git add -A && git commit -m 'WIP: work in progress'"
+    context: "files"
+    loadingText: "Creating WIP commit..."
+    description: "Create WIP commit"
+  # Open in GitHub/GitLab
+  - key: "O"
+    command: "gh browse"
+    context: "global"
+    loadingText: "Opening in browser..."
+    description: "Open repo in browser"
+    output: terminal
