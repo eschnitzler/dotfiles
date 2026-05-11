@@ -12,12 +12,9 @@ return {
             servers = {
                 -- Django Template LSP
                 djlsp = {
-                    cmd = { vim.fn.stdpath("config") .. "/scripts/djlsp-docker-wrapper.py" },
                     filetypes = { "htmldjango" },
                     init_options = {
                         django_settings_module = "app.settings",
-                        django_compose_file = "docker-compose.yml",
-                        django_compose_service = "web",
                     },
                 },
                 hx_requests_lsp = {},

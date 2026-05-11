@@ -2,16 +2,14 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local sn = ls.snippet_node
+local rep = require("luasnip.extras").rep
 
 return {
   -- Block tags
   s("block", {
     t("{% block "), i(1, "name"), t(" %}"),
     t({ "", "\t" }), i(2),
-    t({ "", "{% endblock " }), i(3, "name"), t(" %}"),
+    t({ "", "{% endblock " }), rep(1), t(" %}"),
   }),
 
   s("extends", {
@@ -59,7 +57,7 @@ return {
   }),
 
   s("url", {
-    t('{% url "'), i(1, "name"), t('" '), i(2, "args"), t(" %}"),
+    t('{% url "'), i(1, "name"), t('" '), i(2), t(" %}"),
   }),
 
   -- Comments
