@@ -21,73 +21,50 @@ end, { desc = "Grep in ALL files including .venv" })
 
 map("n", "<leader>o", "<cmd>Outline<cr>", { desc = "Toggle Outline" })
 
--- Sidekick fullscreen toggle
-local sidekick_fullscreen = false
-local sidekick_saved_config = nil
-
-local function find_sidekick_window()
+-- OpenCode
+local function find_opencode_win()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
-    if vim.b[buf].sidekick_cli then
+    if vim.bo[buf].buftype == "terminal" and vim.api.nvim_buf_get_name(buf):find("opencode") then
       return win
     end
   end
-  return nil
 end
 
+map("n", "<leader>ao", function()
+  require("opencode").toggle()
+  local win = find_opencode_win()
+  if win then
+    vim.api.nvim_set_current_win(win)
+    vim.cmd("startinsert")
+  end
+end, { desc = "Toggle OpenCode" })
+
 map("n", "<leader>af", function()
-  local win = find_sidekick_window()
+  local win = find_opencode_win()
   if not win then
-    -- Open sidekick first, then go fullscreen
-    vim.cmd("Sidekick cli show")
-    vim.defer_fn(function()
-      local w = find_sidekick_window()
-      if w then
-        local buf = vim.api.nvim_win_get_buf(w)
-        sidekick_saved_config = vim.api.nvim_win_get_config(w)
-        vim.api.nvim_win_close(w, false)
-        vim.defer_fn(function()
-          vim.api.nvim_open_win(buf, true, {
-            relative = "editor",
-            row = 0,
-            col = 0,
-            width = vim.o.columns,
-            height = vim.o.lines - 3,
-            style = "minimal",
-            border = "none",
-          })
-          sidekick_fullscreen = true
-        end, 50)
-      end
-    end, 100)
-    return
+    require("opencode").toggle()
+    win = find_opencode_win()
+    if not win then return end
   end
 
-  if sidekick_fullscreen then
-    vim.api.nvim_win_close(win, false)
-    vim.defer_fn(function()
-      vim.cmd("Sidekick cli show")
-      sidekick_fullscreen = false
-      sidekick_saved_config = nil
-    end, 50)
+  local is_maximized = vim.api.nvim_win_get_width(win) > vim.o.columns * 0.8
+  if is_maximized then
+    -- Restore equal sizing
+    vim.cmd("wincmd =")
   else
-    local buf = vim.api.nvim_win_get_buf(win)
-    sidekick_saved_config = vim.api.nvim_win_get_config(win)
-    vim.api.nvim_win_close(win, false)
-    vim.defer_fn(function()
-      vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        row = 0,
-        col = 0,
-        width = vim.o.columns,
-        height = vim.o.lines - 3,
-        style = "minimal",
-        border = "none",
-      })
-      sidekick_fullscreen = true
-    end, 50)
+    -- Maximize opencode
+    vim.api.nvim_set_current_win(win)
+    vim.o.winminwidth = 0
+    vim.cmd("wincmd | | wincmd _")
+    vim.cmd("startinsert")
   end
-end, { desc = "Toggle Sidekick Fullscreen" })
+end, { desc = "Toggle OpenCode Fullscreen" })
+map({ "n", "x" }, "<leader>aa", function() require("opencode").ask("@this: ", { submit = true }) end, { desc = "Ask OpenCode" })
+map({ "n", "x" }, "<leader>aA", function() require("opencode").ask() end, { desc = "Ask OpenCode (blank)" })
+map({ "n", "x" }, "<leader>as", function() require("opencode").select() end, { desc = "OpenCode select action" })
+map({ "n", "x" }, "<leader>ar", function() return require("opencode").operator("@this ") end, { expr = true, desc = "Send range to OpenCode" })
+map("n", "<leader>al", function() return require("opencode").operator("@this ") .. "_" end, { expr = true, desc = "Send line to OpenCode" })
 
 -- Tab management
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
