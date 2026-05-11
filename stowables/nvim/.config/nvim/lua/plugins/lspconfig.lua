@@ -21,16 +21,12 @@ return {
                     },
                 },
                 hx_requests_lsp = {},
-                -- Python LSP
-                basedpyright = {
+                -- Python LSP (disable basedpyright from lazyvim python extra)
+                basedpyright = { enabled = false },
+                ty = {
                     settings = {
-                        basedpyright = {
-                            analysis = {
-                                typeCheckingMode = "off",
-                                autoSearchPaths = true,
-                                useLibraryCodeForTypes = true,
-                                diagnosticMode = "openFilesOnly",
-                            },
+                        ty = {
+                            diagnosticMode = "openFilesOnly",
                         },
                     },
                 },
